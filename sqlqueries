@@ -1,0 +1,300 @@
+           Akshata                   20000 18-FEB-82
+
+SQL> desc SampleData;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+
+ EID                                                NUMBER
+ ENAME                                              VARCHAR2(20)
+ ESAL                                               NUMBER
+ BDATE                                              DATE
+ DEPTID                                             NUMBER
+
+SQL> ALTER TABLE SAMPLEDATA drop COLUMN deptid;
+
+Table altered.
+
+SQL> desc SampleData;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+
+ EID                                                NUMBER
+ ENAME                                              VARCHAR2(20)
+ ESAL                                               NUMBER
+ BDATE                                              DATE
+
+SQL> ALTER TABLE SAMPLEDATA ADD deptid NUMBER;
+
+Table altered.
+
+SQL> ALTER TABLE SAMPLEDATA ADD CONSTRAINT deptid_fk FOREIGN KEY(deptId) REFEREN
+CES DEPARTMENT(deptid);
+
+Table altered.
+
+SQL> INSERT INTO SAMPLEDATA VALUES(106,'Akshada',22000,'18-Feb-1982',40);
+INSERT INTO SAMPLEDATA VALUES(106,'Akshada',22000,'18-Feb-1982',40)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (LAB2ETRG29.DEPTID_FK) violated - parent key
+not found
+
+
+SQL> INSERT INTO SAMPLEDATA VALUES(106,'Akshada',22000,'18-Feb-1982',101);
+
+1 row created.
+
+SQL> ALTER TABLE SAMPLEDATA MODIFY eName VARCHAR(40);
+
+Table altered.
+
+SQL> ALTER TABLE SAMPLEDATA ADD CONSTRAINT eSal_ck CHECK(eSal>=2000);
+
+Table altered.
+
+SQL> DROP TABLE SAMPLEDATA
+  2  DROP TABLE SAMPLEDATA ;
+DROP TABLE SAMPLEDATA
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> DROP TABLE SAMPLEDATA ;
+
+Table dropped.
+
+SQL> DESC SAMPLEDATA
+ERROR:
+ORA-04043: object SAMPLEDATA does not exist
+
+
+SQL> DESC SAMPLEDATA;
+ERROR:
+ORA-04043: object SAMPLEDATA does not exist
+
+
+SQL> SELECT * FROM SAMPLEDATA;
+SELECT * FROM SAMPLEDATA
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> CREATE VIEW stu_view as SELECT stuId,stuName FROM STUDENT WHERE deptID=30;
+CREATE VIEW stu_view as SELECT stuId,stuName FROM STUDENT WHERE deptID=30
+                                                                *
+ERROR at line 1:
+ORA-00904: "DEPTID": invalid identifier
+
+
+SQL> CREATE VIEW stu_view as SELECT stuId,stuName FROM STUDENT1 WHERE deptId=30;
+
+
+View created.
+
+SQL> SELECT * FROM stu_view;
+
+no rows selected
+
+SQL> CREATE VIEW stu_view as SELECT stuId,stuName FROM STUDENT1 WHERE deptId=102
+;
+CREATE VIEW stu_view as SELECT stuId,stuName FROM STUDENT1 WHERE deptId=102
+            *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> CREATE VIEW stu1_view as SELECT stuId,stuName FROM STUDENT1 WHERE deptId=10
+2;
+
+View created.
+
+SQL> SELECT * From stu1-view;
+SELECT * From stu1-view
+                  *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> SELECT * From stu1_view;
+
+     STUID STUNAME
+---------- --------------------
+        11 RAM
+        14 SUMIT
+        15 SHREE
+
+SQL> INSERT INTO stu1_view(stuid,stuname)VALUES(21,'RAJ');
+
+1 row created.
+
+SQL> SELECT * FROM student1;
+
+     STUID STUNAME                   MARKS     DEPTID
+---------- -------------------- ---------- ----------
+        21 RAJ
+        10 Abhishek                     99        101
+        11 RAM                          90        102
+        12 RAJ                          80        103
+        13 Amit                         80        101
+        14 SUMIT                        80        102
+        15 SHREE                        70        102
+        16 NISHANT                      70        103
+        17 Pooja                        75        104
+        18 Priya                        95        104
+
+10 rows selected.
+
+SQL> CREATE SEQUENCE eID-seq
+  2  CREATE SEQUENCE eID-seq;
+CREATE SEQUENCE eID-seq
+                   *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> CREATE SEQUENCE eID_seq;
+
+Sequence created.
+
+SQL> DROP SEQUENCE eID_seq;
+
+Sequence dropped.
+
+SQL> DROP SEQUENCE eID_seq
+  2  START WITH 1000
+  3  MAXVALUE 10000
+  4  INCREAMENT BY 1
+  5  NOCYCLE;
+START WITH 1000
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> DROP SEQUENCE eID_seq
+  2  START WITH 1000
+  3  MAXVALUE 10000
+  4  INCREAMENT BY 1
+  5  NOCYCLE;
+START WITH 1000
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> START WITH 1000
+SP2-0310: unable to open file "WITH.sql"
+SQL> CREATE SEQUENCE eID_seq
+  2  START WITH 1000
+  3  MAXVALUE 10000
+  4  INCREMENT BY 1
+  5  NOCYCLE;
+
+Sequence created.
+
+SQL> SELECT eid_seq.NEXTVAL FROM DUAL;
+
+   NEXTVAL
+----------
+      1000
+
+SQL> SELECT eid_seq.CURVVAL FROM DUAL;
+SELECT eid_seq.CURVVAL FROM DUAL
+       *
+ERROR at line 1:
+ORA-00904: "EID_SEQ"."CURVVAL": invalid identifier
+
+
+SQL> SELECT eid_seq.CURRVAL FROM DUAL;
+
+   CURRVAL
+----------
+      1000
+
+SQL> SELECT eid_seq.NEXTVAL FROM DUAL;
+
+   NEXTVAL
+----------
+      1001
+
+SQL> INSERT INTO STUDENT1 VALUES(eid_seq.NEXTVAL,'Sima',90,102);
+
+1 row created.
+
+SQL> CREATE TABLE SAMPLEDATA(eId NUMBER,eName VARCHAR2(20),eSal NUMBER,bDate DAT
+E);
+
+Table created.
+
+SQL> INSERT INTO SAMPLEDATA(eId,eName)VALUES(101,'RIMA');
+
+1 row created.
+
+SQL> INSERT INTO SAMPLEDATA VALUES(&eId,&eName,&eSal,&bdate);
+Enter value for eid: 102
+Enter value for ename: 'RAM'
+Enter value for esal: 20000
+Enter value for bdate: '01-apr-1996'
+old   1: INSERT INTO SAMPLEDATA VALUES(&eId,&eName,&eSal,&bdate)
+new   1: INSERT INTO SAMPLEDATA VALUES(102,'RAM',20000,'01-apr-1996')
+
+1 row created.
+
+SQL> SELECT * FROM STUDENT1;
+
+     STUID STUNAME                   MARKS     DEPTID
+---------- -------------------- ---------- ----------
+        21 RAJ
+      1002 Sima                         90        102
+        10 Abhishek                     99        101
+        11 RAM                          90        102
+        12 RAJ                          80        103
+        13 Amit                         80        101
+        14 SUMIT                        80        102
+        15 SHREE                        70        102
+        16 NISHANT                      70        103
+        17 Pooja                        75        104
+        18 Priya                        95        104
+
+11 rows selected.
+
+SQL> UPDATE Student SET marks=97 WHERE stuid=10;
+UPDATE Student SET marks=97 WHERE stuid=10
+                                  *
+ERROR at line 1:
+ORA-00904: "STUID": invalid identifier
+
+
+SQL> UPDATE Student1 SET marks=97 WHERE stuid=10;
+
+1 row updated.
+
+SQL> UPDATE Student1 SET marks=97,STUNAME='Rehan' WHERE stuid=11;
+
+1 row updated.
+
+SQL> SELECT * FROM STUDENT1;
+
+     STUID STUNAME                   MARKS     DEPTID
+---------- -------------------- ---------- ----------
+        21 RAJ
+      1002 Sima                         90        102
+        10 Abhishek                     97        101
+        11 Rehan                        97        102
+        12 RAJ                          80        103
+        13 Amit                         80        101
+        14 SUMIT                        80        102
+        15 SHREE                        70        102
+        16 NISHANT                      70        103
+        17 Pooja                        75        104
+        18 Priya                        95        104
+
+11 rows selected.
+
+SQL> UPDATE Student1 SET marks=97 WHERE stuid=11 AND STUNAME='Rehan';
+
+1 row updated.
+
+SQL>
