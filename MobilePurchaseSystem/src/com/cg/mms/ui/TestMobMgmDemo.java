@@ -1,47 +1,40 @@
 package com.cg.mms.ui;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
+import com.cg.mms.dto.Customer;
 //import com.cg.mms.util.MyStringDateUtil;
 import com.cg.mms.dto.Mobile;
-import com.cg.mms.exception.MobileException;
-import com.cg.mms.service.MobileService;
-import com.cg.mms.service.MobileServiceImpl;
+import com.cg.mms.exception.CustomerException;
+import com.cg.mms.service.CustomerService;
+import com.cg.mms.service.CustomerServiceImpl;
+import com.cg.mms.util.MyStringDateUtil;
+
 
 public class TestMobMgmDemo 
 {
-   static Scanner sc = new Scanner(System.in);
-	
-	static MobileService mobService=null;
+	static Scanner sc=new Scanner(System.in);
+	static Customer cust=null;
+	static CustomerServiceImpl csi=null;
 	
 	public static void main(String[] args) 
 	{
-		mobService=new MobileServiceImpl();
+       System.out.println("What do you want to do---> 1:insert new customer\t\t2:get the mobile by price\t\t3:fetch details of all the mobiles\t\t4:delete a mobile detail\t\t");
 		
-		
-		int choice; 
-		
-	    while(true)
-	    {
-	    	System.out.println("what do u want to do ?");
-		    System.out.println("1.addCus\n2.Fetch all Mob\n3.delete mob \n4.get mob by price\n5.exit");
-		    
-		    choice=sc.nextInt();
-		    
-		    switch(choice)
-		    {
-		        
-		    case 1:InsertCust();
-		           break;
-		    //default:System.exit(1);
-		    case 2:FetchAllMob();
-		           break;
-		    case 3:DeleteMob();
-		           break;
-		    case 4:MobbyPrice();
-		           break;
-		    }
-	    }
+		while(true)
+		{
+			int choice=sc.nextInt();
+			switch(choice)
+			{
+			case 1: InsertCust();break;
+			//case 2: mobRange(); break;
+			//case 3: fetchDetails(); break;
+			//case 4: delMobile(); break;
+			default: System.exit(1);
+			}
+		}
+
 
 	}
 
@@ -66,7 +59,7 @@ public class TestMobMgmDemo
 	private static void InsertCust() 
 	{
 		
-		try {
+		/*try {
 						
 				System.out.println("enter customer Name: ");
 				String cusname=sc.next();
@@ -113,10 +106,67 @@ public class TestMobMgmDemo
 		catch (MobileException e)
 		{
 			System.out.println(e.getMessage());
-		}
+		}*/
 		
 	
+
+		csi=new CustomerServiceImpl();
+		
+		System.out.println("Enter the Mobile ID");
+		int mid=sc.nextInt();
+		
+		if(csi.checkMobileQuant(mid))
+		{
+		System.out.println("Enter the purchaseId number");
+		int pidNum=sc.nextInt(); 
+		
+		System.out.println("Enter the Name of the Customer");
+		String cus=sc.next();
+		
+		if(csi.validateName(cus))
+		{
+			System.out.println("Enter the Email");
+			String email=sc.next();
+			if(csi.validateMailId(email))
+			{
+				System.out.println("Enter the Phone number");
+				String phNum=sc.next();
+				
+				if(csi.validatePhoneNum(phNum))
+				{
+					try {
+					System.out.println("Enter the purchase Date indd-mm-yyyy format");
+					String dt=sc.next();
+					LocalDate lDate;
+					lDate=MyStringDateUtil.fromStringToLocalDate(dt);
+					cust=new Customer(pidNum, cus, email,phNum,lDate, mid);
+					
+					
+						int recIns=csi.addCust(cust);
+					}
+					catch (CustomerException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				else
+					System.out.println("Invalid phone number");
+			}
+			else
+				System.out.println("Invalid email");
+		}
+		else
+			System.out.println("Invalid Name");
+	}
+	 else
+		System.out.println("Mobile not available");
+	}
+		
 		
 	}
+		
+		
 
-}
+

@@ -2,18 +2,32 @@ package com.cg.mms.service;
 
 import java.util.ArrayList;
 
+import com.cg.mms.dto.Customer;
 import com.cg.mms.dto.Mobile;
 import com.cg.mms.exception.CustomerException;
 
 public interface CustomerService 
 {
-	public int addCust(Mobile mob) throws CustomerException;
+    public int addCust(Customer cust) throws CustomerException;
 	
-	public ArrayList<Mobile> getAllMob();
+	public void updateMobileQunt();
 	
-	public int deleteMob(int mobileId) ;
-	public int getMobByPrice(int mobilePrice);
+	public ArrayList<Mobile> fetchAllMob() throws CustomerException;
 	
-	public boolean validateName(String custName) throws CustomerException;
+	public void deleteMobile (int mobId);
+	
+	public void getMobileByPrice(int max, int min);
+	
+	//Validation functions
+	public boolean checkMobileQuant(int mobId);
+	
+	public boolean validateName(String name);
+	
+	public boolean validateMailId(String mid);
+	
+	public boolean validatePhoneNum(String phoneNum);
+	
+	public boolean validateMobileId(int MobId);
+	
 
 }

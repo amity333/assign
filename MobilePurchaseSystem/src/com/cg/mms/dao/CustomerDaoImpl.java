@@ -94,27 +94,8 @@ public class CustomerDaoImpl implements CustomerDao
 		return recIns;
 	}
 	
-	@Override
-	public ArrayList<Mobile> getAllMob() 
-	{
-		
-		return null;
-	}
-	
-	@Override
-	public int deleteMob(int mobileId)
-	{
-		
-		return 0;
-	}
 	
 	
-	@Override
-	public int getMobByPrice(int max, int min) 
-	{
-		
-		return 0;
-	}
 
 	@Override
 	public void updateMobileQunt()
@@ -133,6 +114,24 @@ public class CustomerDaoImpl implements CustomerDao
 	public boolean validateMobileId(int MobId) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public ArrayList<Mobile> fetchAllMob() throws CustomerException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteMobile(int mobId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getMobileByPrice(int max, int min) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 
