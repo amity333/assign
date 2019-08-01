@@ -1,6 +1,7 @@
 package com.cg.mms.ui;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.cg.mms.dto.Customer;
@@ -30,8 +31,10 @@ public class TestMobMgmDemo
 			switch(choice)
 			{
 			case 1: InsertCust();break;
-			//case 2: mobRange(); break;
-			//case 3: fetchDetails(); break;
+			case 2: MobbyPrice(); 
+			        break;
+			case 3: FetchAllMob(); 
+			        break;
 			case 4: DeleteMob(); 
 			        break;
 			default:System.exit(1);
@@ -43,7 +46,12 @@ public class TestMobMgmDemo
 
 	private static void MobbyPrice() 
 	{
-		
+		System.out.println("Enter the Min price");
+		int min=sc.nextInt();
+		System.out.println("Enter the Max price");
+		int max=sc.nextInt();
+		csi=new CustomerServiceImpl();
+		csi.getMobileByPrice(max, min);
 		
 	}
 
@@ -59,7 +67,22 @@ public class TestMobMgmDemo
 
 	private static void FetchAllMob() 
 	{
-		
+		csi=new CustomerServiceImpl();
+		ArrayList<Mobile> arr=new ArrayList<Mobile>();
+		try 
+		{
+			arr=csi.fetchAllMob();
+			for(Mobile m:arr)
+			{
+				System.out.println(m);
+			}
+			
+		}
+		catch (CustomerException e) 
+		{
+			
+			e.printStackTrace();
+		}
 		
 	}
 

@@ -175,9 +175,26 @@ public class CustomerDaoImpl implements CustomerDao
 	}
 
 	@Override
-	public ArrayList<Mobile> fetchAllMob() throws CustomerException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Mobile> fetchAllMob() throws CustomerException
+	{
+		ArrayList<Mobile> arr=new ArrayList<Mobile>();
+		try {
+			con=DBUtil.getCon();
+			pst=con.prepareStatement(QueryMapper.MOB_SELECTALL);
+			rs=pst.executeQuery();
+			while(rs.next())
+			{
+				arr.add(new Mobile(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4)));
+			}
+		} 
+		catch (ClassNotFoundException | IOException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	
+		return arr;
+
+
 	}
 
 	@Override
@@ -196,15 +213,33 @@ public class CustomerDaoImpl implements CustomerDao
 		} 
 		catch (ClassNotFoundException | CustomerException | IOException| SQLException e) 
 		{
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
 	}
 
 	@Override
-	public void getMobileByPrice(float max, float min) {
-		// TODO Auto-generated method stub
+	public void getMobileByPrice(float max, float min) 
+	{
+	
+		try
+		{
+			con=DBUtil.getCon();
+			pst=con.prepareStatement(QueryMapper.MOB_SEL_BYSALRANGE);
+			pst.setFloat(1, min);
+			pst.setFloat(2,max);
+			rs=pst.executeQuery();
+			while(rs.next())	
+			{
+				System.out.println(rs.getString("modelname"));
+			}
+		}
+		catch (ClassNotFoundException | CustomerException | IOException| SQLException e)
+		{
+			
+			e.printStackTrace();
+		}
 		
 	}
 	

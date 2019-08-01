@@ -22,7 +22,7 @@ public interface QueryMapper {
 	
 	//public static final String EMP_SEL_BYID="SELECT * from E WHERE empId=?";
 	
-	public static final String MOB_SEL_BYSALRANGE=  "SELECT  *  from  MOBILE WHERE  price>= ? and price<=?";
+	public static final String MOB_SEL_BYSALRANGE=  "SELECT  *  from  MOBILE WHERE  mobileprice>= ? and mobileprice<=?";
 	
 	public static final String CUS_UPD_MOB=  "SELECT  *  from  Mobile WHERE MobileId = ? ";
 }

@@ -38,8 +38,8 @@ public class CustomerServiceImpl implements CustomerService
 	}
 
 	public void getMobileByPrice(float max, float min) {
-		// TODO Auto-generated method stub
 		
+		cdi.getMobileByPrice(max, min);
 	}
 
 	public boolean checkMobileQuant(int mobId) {
