@@ -4,7 +4,7 @@ public class Mobile
 {
 	int mobId;
 	String name;
-	int price;
+	float price;
 	int quant;
 	
 	public Mobile() 
@@ -14,7 +14,7 @@ public class Mobile
 	}
 	
 	
-	public Mobile(int mobId, String name, int price, int quant)
+	public Mobile(int mobId, String name, float price, int quant)
 	{
 		super();
 		this.mobId = mobId;
@@ -50,12 +50,12 @@ public class Mobile
 		this.name = name;
 	}
 	
-	public int getPrice() 
+	public float getPrice() 
 	{
 		return price;
 	}
 	
-	public void setPrice(int price)
+	public void setPrice(float price)
 	{
 		this.price = price;
 	}

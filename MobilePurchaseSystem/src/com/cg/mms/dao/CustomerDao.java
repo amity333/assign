@@ -23,7 +23,7 @@ public interface CustomerDao
 	
 	public void deleteMobile (int mobId);
 	
-	public void getMobileByPrice(int max, int min);
+	public void getMobileByPrice(float max, float min);
 	
 	public boolean checkMobileQuant(int mobileId);
 	

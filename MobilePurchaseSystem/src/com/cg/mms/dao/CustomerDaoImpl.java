@@ -15,11 +15,12 @@ import com.cg.mms.exception.CustomerException;
 import com.cg.mms.util.DBUtil;
 import com.cg.mms.util.MyStringDateUtil;
 
+
 public class CustomerDaoImpl implements CustomerDao 
 {
 	Connection con=null;
 	Statement st=null;
-	PreparedStatement pst=null;
+	PreparedStatement pst,pst1=null;
 	ResultSet rs=null;
 	
 	@Override
@@ -27,7 +28,7 @@ public class CustomerDaoImpl implements CustomerDao
 	{
        // java.sql.Date sqlDOB=MyStringDateUtil.fromLocalToSqlDate(emp.getEmpDOB());
 		
-        CustomerDaoImpl mdi=new CustomerDaoImpl();
+        CustomerDaoImpl cdi=new CustomerDaoImpl();
 		
 		int mobId=cust.getMobileId();
 		
@@ -35,9 +36,10 @@ public class CustomerDaoImpl implements CustomerDao
 		int recIns=0;
 		try {
 			con=DBUtil.getCon();
+			//System.out.println("con = ");
 			 
 			//pst=con.prepareStatement(QueryMapper.MOB_INSERT_QRY);
-			PreparedStatement pst = con.prepareStatement("select * from mobile where mobileid=?");
+			PreparedStatement pstq = con.prepareStatement("select * from mobile where mobileid=?");
 			
 		    /*pst.setString(1, mob.getCustName());
 		    pst.setString(2, mob.getMailId());
@@ -49,13 +51,13 @@ public class CustomerDaoImpl implements CustomerDao
 			//pst.setDate(4,sqlDOB);
 			dataInserted=pst.executeUpdate();*/
 			
-			pst.setInt(1, mobId);
-			int o=pst.executeUpdate();
-			ResultSet rsq=pst.executeQuery();
+			pstq.setInt(1, mobId);
+			int o=pstq.executeUpdate();
+			ResultSet rsq=pstq.executeQuery();
 			boolean b=rsq.next();
 			
 			int quant=rsq.getInt(4);
-			PreparedStatement psto=con.prepareStatement("update Mobiles set quantity=? Where Mobileid=?");
+			PreparedStatement psto=con.prepareStatement("update mobile set mobilequantity=? Where mobileid=?");
 			psto.setInt(2, mobId);
 			psto.setInt(1, quant-1);
 			
@@ -63,7 +65,7 @@ public class CustomerDaoImpl implements CustomerDao
 			System.out.println(quant);
 			
 			
-			if(pst!=null && mdi.checkMobileQuant(mobId))
+			if(pst!=null && cdi.checkMobileQuant(mobId))
 			{
 				
 				pst=con.prepareStatement(QueryMapper.MOB_INSERT_QRY);
@@ -107,13 +109,69 @@ public class CustomerDaoImpl implements CustomerDao
 	@Override
 	public boolean checkMobileQuant(int mobileId) 
 	{
+		try 
+		{
+			con=DBUtil.getCon();
+			pst=con.prepareStatement("select * from Mobile where mobileid=?");
+			pst.setInt(1,mobileId);
+			
+			rs=pst.executeQuery();
+			boolean b=rs.next();
+			if(rs.getInt(4)>0)
+				return true;
+			
+			else 
+				return false;
+		} 
+		catch (ClassNotFoundException | CustomerException | IOException
+				| SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return false;
 	}
 
 	public boolean validateMobileId(int MobId) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean f=false;
+		try 
+		{
+			con=DBUtil.getCon();
+			
+			pst=con.prepareStatement("select * from Mobile where mobileid=?");
+			pst.setInt(1, MobId);
+			
+			rs=pst.executeQuery();
+			
+			
+			ArrayList<Integer> ar=new ArrayList<Integer>();
+			if(rs!=null)
+			while(rs.next())
+			{
+				ar.add(rs.getInt(1));
+			}
+			//&& ar.get(i)==MobId
+			String mobileId=Integer.toString(MobId);
+			for(Integer i:ar)
+			{
+				if(mobileId.matches("\\d{4}") )
+				{
+					f= true;
+				}
+				else
+					f=false;
+				} 
+			}
+		catch (ClassNotFoundException | CustomerException | IOException| SQLException e) 
+		{
+		
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return f;
+		
+		
 	}
 
 	@Override
@@ -123,13 +181,29 @@ public class CustomerDaoImpl implements CustomerDao
 	}
 
 	@Override
-	public void deleteMobile(int mobId) {
-		// TODO Auto-generated method stub
+	public void deleteMobile(int mobId) 
+	{
+
+		try
+		{
+				con=DBUtil.getCon();
+				pst1=con.prepareStatement(QueryMapper.PUR_DEL_QRY);
+				pst1.setInt(1,mobId);
+				pst1.executeQuery();
+				pst=con.prepareStatement(QueryMapper.MOB_DEL_QRY);
+				pst.setInt(1,mobId);
+				pst.executeQuery();
+		} 
+		catch (ClassNotFoundException | CustomerException | IOException| SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
-	public void getMobileByPrice(int max, int min) {
+	public void getMobileByPrice(float max, float min) {
 		// TODO Auto-generated method stub
 		
 	}

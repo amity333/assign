@@ -3,7 +3,11 @@ package com.cg.mms.exception;
 public class CustomerException extends Exception
 {
 
-
+	public CustomerException(String arg0) {
+		super(arg0);
+		// TODO Auto-generated constructor stub
+	}
+	
 	public CustomerException() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -20,10 +24,6 @@ public class CustomerException extends Exception
 		// TODO Auto-generated constructor stub
 	}
 
-	public CustomerException(String arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
 
 	public CustomerException(Throwable arg0) {
 		super(arg0);

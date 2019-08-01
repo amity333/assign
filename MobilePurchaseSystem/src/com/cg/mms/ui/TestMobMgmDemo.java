@@ -20,18 +20,21 @@ public class TestMobMgmDemo
 	
 	public static void main(String[] args) 
 	{
-       System.out.println("What do you want to do---> 1:insert new customer\t\t2:get the mobile by price\t\t3:fetch details of all the mobiles\t\t4:delete a mobile detail\t\t");
-		
+      
 		while(true)
 		{
+			 System.out.println("What do you want to do : ");
+				System.out.println("1:insert new customer\n2:get the mobile by price\n3:fetch details of all the mobiles\n4:delete a mobile detail");
+			
 			int choice=sc.nextInt();
 			switch(choice)
 			{
 			case 1: InsertCust();break;
 			//case 2: mobRange(); break;
 			//case 3: fetchDetails(); break;
-			//case 4: delMobile(); break;
-			default: System.exit(1);
+			case 4: DeleteMob(); 
+			        break;
+			default:System.exit(1);
 			}
 		}
 
@@ -47,6 +50,10 @@ public class TestMobMgmDemo
 	private static void DeleteMob() 
 	{
 	
+		csi=new CustomerServiceImpl();
+		System.out.println("Enter the mobid to be deleted");
+		int mobId=sc.nextInt();
+		csi.deleteMobile(mobId);
 		
 	}
 
@@ -123,17 +130,17 @@ public class TestMobMgmDemo
 		System.out.println("Enter the Name of the Customer");
 		String cus=sc.next();
 		
-		if(csi.validateName(cus))
-		{
+		//if(csi.validateName(cus))
+		//{
 			System.out.println("Enter the Email");
 			String email=sc.next();
-			if(csi.validateMailId(email))
-			{
+			//if(csi.validateMailId(email))
+			//{
 				System.out.println("Enter the Phone number");
 				String phNum=sc.next();
 				
-				if(csi.validatePhoneNum(phNum))
-				{
+				//if(csi.validatePhoneNum(phNum))
+				//{
 					try {
 					System.out.println("Enter the purchase Date indd-mm-yyyy format");
 					String dt=sc.next();
@@ -151,15 +158,15 @@ public class TestMobMgmDemo
 					}
 					
 				}
-				else
-					System.out.println("Invalid phone number");
-			}
-			else
-				System.out.println("Invalid email");
-		}
-		else
-			System.out.println("Invalid Name");
-	}
+				//else
+				//	System.out.println("Invalid phone number");
+			//}
+			//else
+				//System.out.println("Invalid email");
+		//}
+		//else
+			//System.out.println("Invalid Name");
+	//}
 	 else
 		System.out.println("Mobile not available");
 	}

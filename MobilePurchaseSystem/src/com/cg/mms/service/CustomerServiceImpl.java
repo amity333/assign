@@ -17,7 +17,7 @@ public class CustomerServiceImpl implements CustomerService
 
 	public int addCust(Customer cust) throws CustomerException {
 		// TODO Auto-generated method stub
-		return 0;
+		return cdi.addCust(cust);
 	}
 
 	public void updateMobileQunt() {
@@ -27,43 +27,57 @@ public class CustomerServiceImpl implements CustomerService
 
 	public ArrayList<Mobile> fetchAllMob() throws CustomerException {
 		// TODO Auto-generated method stub
-		return null;
+		return cdi.fetchAllMob();
 	}
 
-	public void deleteMobile(int mobId) {
-		// TODO Auto-generated method stub
+	public void deleteMobile(int mobId) 
+	{
+
+		cdi.deleteMobile(mobId);
 		
 	}
 
-	public void getMobileByPrice(int max, int min) {
+	public void getMobileByPrice(float max, float min) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	public boolean checkMobileQuant(int mobId) {
 		// TODO Auto-generated method stub
-		return false;
+		return cdi.checkMobileQuant(mobId);
 	}
 
 	@Override
 	public boolean validateName(String name) {
 		// TODO Auto-generated method stub
-		return false;
+		if(name.matches("[A-Z][a-z]{1,19}"))
+		{
+			return true;
+		}
+		else
+			return false;
+		
 	}
 
 	public boolean validateMailId(String mid) {
 		// TODO Auto-generated method stub
+		if(mid.matches("^(.+)@(.+)$"))
+			return true;
+		else
 		return false;
 	}
 
 	public boolean validatePhoneNum(String phoneNum) {
 		// TODO Auto-generated method stub
+		if(phoneNum.matches("[7-9][0-9]{9}"))
+			return true;
+		else
 		return false;
 	}
 
 	public boolean validateMobileId(int MobId) {
 		// TODO Auto-generated method stub
-		return false;
+		return cdi.validateMobileId(MobId);
 	}
 	
 	

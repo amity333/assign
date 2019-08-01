@@ -16,7 +16,7 @@ public interface CustomerService
 	
 	public void deleteMobile (int mobId);
 	
-	public void getMobileByPrice(int max, int min);
+	public void getMobileByPrice(float max, float min);
 	
 	//Validation functions
 	public boolean checkMobileQuant(int mobId);
