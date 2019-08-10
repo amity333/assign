@@ -1,0 +1,6 @@
+Timer class uses Object wait and notify methods to schedule the tasks. TimerTask
+ is an abstract class and we inherit it to provide concrete implementation. TimerTask 
+ class implements Runnable interface so it is a thread and hence your implementation of 
+ TimerTask is also a thread.
+
+Very simple Timer and TimerTask Example: Task executes once 5 seconds have passed.

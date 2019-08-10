@@ -1,0 +1,73 @@
+import
+java.util.Scanner;
+
+import
+java.util.regex.Pattern;
+
+
+public
+class
+RegexDemo
+{
+
+	public
+static
+void
+main(String
+args[])
+	{
+		
+		//Pattern
+p=Pattern.compile("[/d/d/d]");
+		Scanner
+s=new
+Scanner(System.in);
+		
+		for(int
+i=1;i<=3;i++)
+		{
+		System.out.println("Enter
+data:");
+		String
+data=s.next();
+		boolean
+matcher=Pattern.matches("[a-z]{8,}[-[a-z]{4,}]+@[a-z]{5}+\\.com",data);
+		if(matcher)
+		{
+			System.out.println("data
+is
+valid"+data);break;
+		}
+		else
+			{
+			
+			if(i==3)
+			{
+				System.out.println("Your
+account
+is
+locked");break;
+			}
+			System.out.println("Please
+enter
+valid
+data");
+			}
+		/*throw
+new
+PatternSyntaxException("invalid
+pattern",data,0);
+		}
+		catch(PatternSyntaxException
+e)
+{
+			System.out.println(e.getMessage());
+		}*/
+		}
+		s.close();
+	
+		
+			
+		}
+	
+}
